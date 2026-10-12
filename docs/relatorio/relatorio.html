@@ -7,9 +7,8 @@
   /* ---------------------------------------------------------------
      Relatório do trabalho de Teste de Mutação (StrykerJS).
      Gere o PDF com:  python docs/relatorio/gerar-pdf.py
-     Os dados da capa estão abaixo, na seção <header class="capa">.
      --------------------------------------------------------------- */
-  @page { size: A4; margin: 16mm 16mm 14mm 16mm; }
+  @page { size: A4; margin: 16mm 16mm 13mm 16mm; }
   @page:first { margin: 0; }
 
   * { box-sizing: border-box; }
@@ -19,73 +18,82 @@
     font-family: "Georgia", "Cambria", serif;
     font-size: 9.4pt;
     line-height: 1.36;
-    color: #15202b;
+    color: #111827;
     text-align: justify;
     hyphens: auto;
   }
 
   /* ---------- Capa ---------- */
   .capa {
-    height: 297mm; padding: 34mm 24mm 20mm;
+    height: 297mm; padding: 30mm 26mm 18mm;
     display: flex; flex-direction: column; text-align: center;
     page-break-after: always;
   }
-  .capa .inst { font-size: 11pt; letter-spacing: .14em; text-transform: uppercase; color: #475569; }
-  .capa .disc { margin-top: 3mm; font-size: 12.5pt; font-weight: bold; color: #0f172a; }
-  .capa .titulo { margin-top: 42mm; font-size: 23pt; font-weight: bold; line-height: 1.22; color: #0b1220; }
-  .capa .sub { margin-top: 5mm; font-size: 12pt; font-style: italic; color: #334155; }
-  .capa .regua { width: 46mm; height: 3px; background: #b91c1c; margin: 9mm auto; }
-  .capa .aluno { margin-top: 2mm; font-size: 12pt; }
-  .capa .aluno strong { font-size: 13pt; }
-  .capa .destaque {
-    margin: 26mm auto 0; width: 112mm; padding: 6mm 8mm;
-    border: 1px solid #cbd5e1; background: #f8fafc; font-family: "Segoe UI", sans-serif;
+  .capa .disciplina {
+    font-family: "Segoe UI", sans-serif; font-size: 10pt; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase; color: #1f3864;
   }
-  .capa .destaque .n { font-size: 20pt; font-weight: 700; color: #15803d; }
-  .capa .destaque .l { font-size: 8.5pt; text-transform: uppercase; letter-spacing: .08em; color: #64748b; }
-  .capa .destaque table { width: 100%; border-collapse: collapse; }
-  .capa .destaque td { text-align: center; padding: 0; border: 0; }
-  .capa .destaque .seta { font-size: 15pt; color: #94a3b8; width: 14mm; }
-  .capa .pe { margin-top: auto; font-size: 10pt; color: #475569; }
+  .capa .tipo {
+    font-family: "Segoe UI", sans-serif; font-size: 8.6pt; letter-spacing: .14em;
+    text-transform: uppercase; color: #6b7280; margin-top: 2.5mm;
+  }
+  .capa .miolo { margin-top: 52mm; }
+  .capa .titulo { font-size: 22pt; font-weight: bold; line-height: 1.24; color: #0b1220; }
+  .capa .sub { margin-top: 6mm; font-size: 11.5pt; font-style: italic; color: #374151; }
+  .capa .regua { width: 42mm; height: 1.6px; background: #1f3864; margin: 11mm auto; }
+  .capa .autor { font-size: 13pt; }
+  .capa .matricula { margin-top: 2.5mm; font-size: 11pt; color: #374151; }
+
+  .capa .resumo { margin: 34mm auto 0; width: 104mm; font-family: "Segoe UI", sans-serif; }
+  .capa .resumo .rotulo {
+    font-size: 7.6pt; letter-spacing: .16em; text-transform: uppercase; color: #6b7280;
+    padding-bottom: 2mm; border-bottom: 1px solid #1f3864;
+  }
+  .capa .resumo table { width: 100%; border-collapse: collapse; font-size: 9pt; margin-top: 2mm; }
+  .capa .resumo td { padding: 1.6mm 0; border-bottom: 1px solid #e5e7eb; text-align: left; }
+  .capa .resumo td.v { text-align: right; font-variant-numeric: tabular-nums; }
+  .capa .resumo td.v strong { font-size: 10pt; }
+
+  .capa .pe { margin-top: auto; font-size: 9pt; color: #4b5563; line-height: 1.6; }
 
   /* ---------- Texto ---------- */
   h2 {
-    font-family: "Segoe UI", sans-serif; font-size: 11.2pt; margin: 4.5mm 0 1.6mm;
-    padding-bottom: .8mm; border-bottom: 1.4px solid #b91c1c; color: #0b1220;
+    font-family: "Segoe UI", sans-serif; font-size: 11pt; margin: 4.1mm 0 1.4mm;
+    padding-bottom: .9mm; border-bottom: 1.2px solid #1f3864; color: #0b1220;
     page-break-after: avoid;
   }
   h3 {
-    font-family: "Segoe UI", sans-serif; font-size: 9.8pt; margin: 3mm 0 1.2mm; color: #1e293b;
+    font-family: "Segoe UI", sans-serif; font-size: 9.6pt; margin: 2.7mm 0 1.1mm; color: #1f3864;
     page-break-after: avoid;
   }
-  p { margin: 0 0 1.8mm; }
-  ul { margin: 0 0 1.8mm; padding-left: 5mm; }
+  p { margin: 0 0 1.65mm; }
+  ul { margin: 0 0 1.65mm; padding-left: 5mm; }
   li { margin-bottom: .9mm; }
   code, .mono { font-family: "Consolas", "Courier New", monospace; font-size: 8.5pt; }
-  code { background: #f1f5f9; padding: 0 .5mm; border-radius: 2px; }
+  code { background: #f3f4f6; padding: 0 .5mm; border-radius: 2px; }
 
   /* ---------- Tabelas ---------- */
   table.dados {
-    width: 100%; border-collapse: collapse; margin: 1.6mm 0 2.4mm;
+    width: 100%; border-collapse: collapse; margin: 1.5mm 0 2.2mm;
     font-family: "Segoe UI", sans-serif; font-size: 8.2pt; text-align: left;
     page-break-inside: avoid;
   }
   table.dados th, table.dados td { border: 1px solid #cbd5e1; padding: .9mm 1.6mm; }
-  table.dados thead th { background: #e2e8f0; font-weight: 600; }
+  table.dados thead th { background: #eef1f6; font-weight: 600; color: #0b1220; }
   table.dados td.num, table.dados th.num { text-align: center; }
   .pos { color: #15803d; font-weight: 600; }
   .neg { color: #b91c1c; font-weight: 600; }
 
   /* ---------- Figuras ---------- */
-  figure { margin: 1.5mm 0 2.1mm; page-break-inside: avoid; }
+  figure { margin: 1.4mm 0 1.9mm; page-break-inside: avoid; }
   figure img { width: 100%; display: block; border: 1px solid #cbd5e1; }
   figcaption {
-    font-family: "Segoe UI", sans-serif; font-size: 7.6pt; color: #475569;
+    font-family: "Segoe UI", sans-serif; font-size: 7.6pt; color: #4b5563;
     margin-top: 1mm; text-align: left;
   }
   .caixa {
-    border-left: 3px solid #b91c1c; background: #f8fafc; padding: 1.8mm 2.6mm;
-    margin: 2mm 0 0; font-size: 8.8pt;
+    border-left: 2.5px solid #1f3864; background: #f6f8fb; padding: 1.8mm 2.6mm;
+    margin: 1.6mm 0 0; font-size: 8.8pt;
   }
 </style>
 </head>
@@ -93,24 +101,26 @@
 
 <!-- ============================ CAPA ============================ -->
 <header class="capa">
-  <div class="inst">Engenharia de Software &middot; Qualidade e Testes de Software</div>
-  <div class="disc">Disciplina: [PREENCHER: NOME DA DISCIPLINA]</div>
+  <div class="disciplina">Disciplina: Teste de Software</div>
+  <div class="tipo">Trabalho prático &middot; Relatório técnico</div>
 
-  <div class="titulo">Análise de Eficácia de Testes<br>com Teste de Mutação</div>
-  <div class="sub">Avaliação e fortalecimento de uma suíte de testes com StrykerJS</div>
+  <div class="miolo">
+    <div class="titulo">Análise de Eficácia de Testes<br>com Teste de Mutação</div>
+    <div class="sub">Avaliação e fortalecimento de uma suíte de testes JavaScript com StrykerJS</div>
 
-  <div class="regua"></div>
+    <div class="regua"></div>
 
-  <div class="aluno"><strong>[PREENCHER: NOME COMPLETO]</strong></div>
-  <div class="aluno">Matrícula: [PREENCHER: MATRÍCULA]</div>
+    <div class="autor">Rafael de Faria Neves Alves Franco</div>
+    <div class="matricula">Matrícula 848908</div>
+  </div>
 
-  <div class="destaque">
+  <div class="resumo">
+    <div class="rotulo">Síntese dos resultados</div>
     <table>
-      <tr>
-        <td><div class="l">Mutation score inicial</div><div class="n" style="color:#b91c1c">73,71%</div></td>
-        <td class="seta">&rarr;</td>
-        <td><div class="l">Mutation score final</div><div class="n">98,12%</div></td>
-      </tr>
+      <tr><td>Mutation score</td><td class="v">73,71% &rarr; <strong>98,12%</strong></td></tr>
+      <tr><td>Cobertura de código (linhas)</td><td class="v">98,64% &rarr; <strong>100%</strong></td></tr>
+      <tr><td>Testes de unidade</td><td class="v">50 &rarr; <strong>82</strong></td></tr>
+      <tr><td>Mutantes indetectados</td><td class="v">56 &rarr; <strong>4</strong></td></tr>
     </table>
   </div>
 
