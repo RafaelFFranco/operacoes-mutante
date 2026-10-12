@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Análise de Eficácia de Testes com Teste de Mutação</title>
+<style>
+  /* ---------------------------------------------------------------
+     Relatório do trabalho de Teste de Mutação (StrykerJS).
+     Gere o PDF com:  python docs/relatorio/gerar-pdf.py
+     Os dados da capa estão abaixo, na seção <header class="capa">.
+     --------------------------------------------------------------- */
+  @page { size: A4; margin: 16mm 16mm 14mm 16mm; }
+  @page:first { margin: 0; }
+
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    margin: 0;
+    font-family: "Georgia", "Cambria", serif;
+    font-size: 9.4pt;
+    line-height: 1.36;
+    color: #15202b;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  /* ---------- Capa ---------- */
+  .capa {
+    height: 297mm; padding: 34mm 24mm 20mm;
+    display: flex; flex-direction: column; text-align: center;
+    page-break-after: always;
+  }
+  .capa .inst { font-size: 11pt; letter-spacing: .14em; text-transform: uppercase; color: #475569; }
+  .capa .disc { margin-top: 3mm; font-size: 12.5pt; font-weight: bold; color: #0f172a; }
+  .capa .titulo { margin-top: 42mm; font-size: 23pt; font-weight: bold; line-height: 1.22; color: #0b1220; }
+  .capa .sub { margin-top: 5mm; font-size: 12pt; font-style: italic; color: #334155; }
+  .capa .regua { width: 46mm; height: 3px; background: #b91c1c; margin: 9mm auto; }
+  .capa .aluno { margin-top: 2mm; font-size: 12pt; }
+  .capa .aluno strong { font-size: 13pt; }
+  .capa .destaque {
+    margin: 26mm auto 0; width: 112mm; padding: 6mm 8mm;
+    border: 1px solid #cbd5e1; background: #f8fafc; font-family: "Segoe UI", sans-serif;
+  }
+  .capa .destaque .n { font-size: 20pt; font-weight: 700; color: #15803d; }
+  .capa .destaque .l { font-size: 8.5pt; text-transform: uppercase; letter-spacing: .08em; color: #64748b; }
+  .capa .destaque table { width: 100%; border-collapse: collapse; }
+  .capa .destaque td { text-align: center; padding: 0; border: 0; }
+  .capa .destaque .seta { font-size: 15pt; color: #94a3b8; width: 14mm; }
+  .capa .pe { margin-top: auto; font-size: 10pt; color: #475569; }
+
+  /* ---------- Texto ---------- */
+  h2 {
+    font-family: "Segoe UI", sans-serif; font-size: 11.2pt; margin: 4.5mm 0 1.6mm;
+    padding-bottom: .8mm; border-bottom: 1.4px solid #b91c1c; color: #0b1220;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-family: "Segoe UI", sans-serif; font-size: 9.8pt; margin: 3mm 0 1.2mm; color: #1e293b;
+    page-break-after: avoid;
+  }
+  p { margin: 0 0 1.8mm; }
+  ul { margin: 0 0 1.8mm; padding-left: 5mm; }
+  li { margin-bottom: .9mm; }
+  code, .mono { font-family: "Consolas", "Courier New", monospace; font-size: 8.5pt; }
+  code { background: #f1f5f9; padding: 0 .5mm; border-radius: 2px; }
+
+  /* ---------- Tabelas ---------- */
+  table.dados {
+    width: 100%; border-collapse: collapse; margin: 1.6mm 0 2.4mm;
+    font-family: "Segoe UI", sans-serif; font-size: 8.2pt; text-align: left;
+    page-break-inside: avoid;
+  }
+  table.dados th, table.dados td { border: 1px solid #cbd5e1; padding: .9mm 1.6mm; }
+  table.dados thead th { background: #e2e8f0; font-weight: 600; }
+  table.dados td.num, table.dados th.num { text-align: center; }
+  .pos { color: #15803d; font-weight: 600; }
+  .neg { color: #b91c1c; font-weight: 600; }
+
+  /* ---------- Figuras ---------- */
+  figure { margin: 1.5mm 0 2.1mm; page-break-inside: avoid; }
+  figure img { width: 100%; display: block; border: 1px solid #cbd5e1; }
+  figcaption {
+    font-family: "Segoe UI", sans-serif; font-size: 7.6pt; color: #475569;
+    margin-top: 1mm; text-align: left;
+  }
+  .caixa {
+    border-left: 3px solid #b91c1c; background: #f8fafc; padding: 1.8mm 2.6mm;
+    margin: 2mm 0 0; font-size: 8.8pt;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================ CAPA ============================ -->
+<header class="capa">
+  <div class="inst">Engenharia de Software &middot; Qualidade e Testes de Software</div>
+  <div class="disc">Disciplina: [PREENCHER: NOME DA DISCIPLINA]</div>
+
+  <div class="titulo">Análise de Eficácia de Testes<br>com Teste de Mutação</div>
+  <div class="sub">Avaliação e fortalecimento de uma suíte de testes com StrykerJS</div>
+
+  <div class="regua"></div>
+
+  <div class="aluno"><strong>[PREENCHER: NOME COMPLETO]</strong></div>
+  <div class="aluno">Matrícula: [PREENCHER: MATRÍCULA]</div>
+
+  <div class="destaque">
+    <table>
+      <tr>
+        <td><div class="l">Mutation score inicial</div><div class="n" style="color:#b91c1c">73,71%</div></td>
+        <td class="seta">&rarr;</td>
+        <td><div class="l">Mutation score final</div><div class="n">98,12%</div></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="pe">
+    Repositório: <span class="mono">github.com/RafaelFFranco/operacoes-mutante</span><br>
+    Outubro de 2026
+  </div>
+</header>
+
+<!-- ======================= 1. ANÁLISE INICIAL ======================= -->
+<h2>1. Análise inicial: cobertura alta, eficácia baixa</h2>
+
+<p>O projeto base é uma biblioteca de 50 funções matemáticas com 50 testes de unidade em Jest, que
+passam integralmente. Medidos com Jest 29.7.0 e StrykerJS 10.0.0 sobre Node.js 22.17.0, os números
+iniciais são:</p>
+
+<table class="dados">
+  <thead>
+    <tr>
+      <th>Suíte original (50 testes)</th><th class="num">Statements</th><th class="num">Branches</th>
+      <th class="num">Functions</th><th class="num">Lines</th><th class="num">Mutation score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Resultado medido</td>
+      <td class="num">85,41%</td><td class="num">58,82%</td>
+      <td class="num">100%</td><td class="num">98,64%</td>
+      <td class="num neg">73,71%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A discrepância é o ponto central do trabalho: <strong>100% das funções e 98,64% das linhas são
+executadas, mas apenas 73,71% dos defeitos injetados são detectados</strong> — quase 25 pontos
+percentuais de diferença. A razão é que cobertura mede <em>execução</em> e o teste de mutação mede
+<em>verificação</em>: um teste pode percorrer uma linha sem asseverar nada sobre o seu efeito. Dos
+213 mutantes gerados, 154 foram mortos, 3 resultaram em <em>timeout</em> (laços infinitos, contados
+como detectados), <strong>44 sobreviveram</strong> e <strong>12 não tinham cobertura alguma</strong> —
+estes concentrados nos <em>guard-clauses</em> de exceção, coerentes com os 58,82% de cobertura de
+ramos, a única métrica que já sinalizava fragilidade.</p>
+
+<figure>
+  <img src="imagens/01-overview-inicial.png" alt="Visão geral do relatório inicial do Stryker">
+  <figcaption><strong>Figura 1</strong> — Relatório do StrykerJS antes da intervenção: 213 mutantes,
+  <em>mutation score</em> de 73,71%, 44 sobreviventes e 12 sem cobertura.</figcaption>
+</figure>
+
+<!-- ======================= 2. MUTANTES CRÍTICOS ======================= -->
+<h2>2. Análise de mutantes críticos</h2>
+
+<p>Os três mutantes a seguir representam classes distintas de fraqueza. Em todos, o relatório
+registra <span class="mono">Covered by 1 test (yet still survived)</span>: a linha era executada e,
+ainda assim, o defeito passou.</p>
+
+<h3>2.1. Mutante #11 — <span class="mono">StringLiteral</span>, linha 8: oráculo incompleto</h3>
+
+<figure>
+  <img src="imagens/04-mutante-11-stringliteral.png" alt="Mutante 11 sobrevivente">
+  <figcaption><strong>Figura 2</strong> — O Stryker esvazia a mensagem da exceção de
+  <code>divisao</code> e o teste original não percebe.</figcaption>
+</figure>
+
+<p>O mutante troca <code>'Divisão por zero não é permitida.'</code> por <code>""</code>. O teste
+original verificava apenas <code>expect(() =&gt; divisao(5, 0)).toThrow()</code>, <strong>sem
+argumento</strong>: o oráculo confirma que <em>alguma</em> exceção ocorreu, não <em>qual</em>. Toda
+corrupção da mensagem é invisível para ele. O mesmo padrão deixava escapar os literais de
+<code>raizQuadrada</code>, <code>fatorial</code>, <code>maximoArray</code>, <code>minimoArray</code>,
+<code>inverso</code> e <code>medianaArray</code> — seis deles sem cobertura, pois nenhum teste chegava
+a provocar a exceção.</p>
+
+<h3>2.2. Mutante #183 — <span class="mono">EqualityOperator</span>, linha 104: fronteira ausente</h3>
+
+<figure>
+  <img src="imagens/05-mutante-183-equality.png" alt="Mutante 183 sobrevivente">
+  <figcaption><strong>Figura 3</strong> — <code>a &gt; b</code> trocado por <code>a &gt;= b</code> em
+  <code>isMaiorQue</code>: sobrevive porque o caso <code>a === b</code> nunca é testado.</figcaption>
+</figure>
+
+<p>Os operadores <code>&gt;</code> e <code>&gt;=</code> divergem em um único ponto do domínio:
+<code>a === b</code>. O teste original exercitava somente <code>isMaiorQue(10, 5)</code>, verdadeiro
+nas duas versões, e por isso nunca contraria o mutante. A ausência de valores de fronteira se repetia
+em <code>isMenorQue</code>, <code>clamp</code> (linhas 88–89), <code>raizQuadrada</code> e
+<code>fatorial</code> (<code>n &lt; 0</code> &rarr; <code>n &lt;= 0</code>) e <code>isPrimo</code>
+(<code>n &lt;= 1</code> &rarr; <code>n &lt; 1</code>).</p>
+
+<h3>2.3. Mutante #200 — <span class="mono">MethodExpression</span>, linha 109: dado não representativo</h3>
+
+<figure>
+  <img src="imagens/06-mutante-200-sort.png" alt="Mutante 200 sobrevivente">
+  <figcaption><strong>Figura 4</strong> — A remoção de <code>.sort((a, b) =&gt; a - b)</code> em
+  <code>medianaArray</code> não é detectada: o teste usava um array já ordenado.</figcaption>
+</figure>
+
+<p>Este é o caso mais instrutivo: o Stryker <strong>remove a ordenação</strong> e o teste original
+— <code>expect(medianaArray([1, 2, 3, 4, 5])).toBe(3)</code> — continua passando, porque o array
+fornecido <em>já estava ordenado</em>. O teste cobria 100% da função sem exercitar a sua principal
+responsabilidade. Pela mesma razão sobreviveram, na linha 109, os mutantes que trocam o comparador por
+<code>() =&gt; undefined</code> e <code>a - b</code> por <code>a + b</code>; e, como o array tinha
+tamanho ímpar, o ramo da média dos dois centrais (linha 112) nunca era executado — dali vinham 4 dos 12
+mutantes sem cobertura. Sintoma análogo ocorria nas conversões de temperatura, testadas apenas com
+0&nbsp;°C e 32&nbsp;°F, valores que anulam o fator multiplicativo e tornam <code>celsius * 9/5</code>
+indistinguível de <code>celsius * 9 * 5</code>.</p>
+
+<!-- ======================= 3. SOLUÇÃO ======================= -->
+<h2>3. Solução implementada</h2>
+
+<p>Foram escritos <strong>32 novos testes</strong> (de 50 para 82) no bloco <em>“Suíte Aprimorada”</em>
+de <span class="mono">test/operacoes.test.js</span>, cada um indicando em comentário a linha e o mutador
+que elimina. <strong>Nenhuma linha de <span class="mono">src/operacoes.js</span> foi alterada</strong>:
+todo o ganho vem da suíte de testes.</p>
+
+<table class="dados">
+  <thead>
+    <tr><th style="width:30%">Técnica</th><th style="width:38%">Exemplos adicionados</th><th>Mutantes eliminados</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Oráculos específicos</strong> — asseverar a mensagem exata, não só o lançamento.</td>
+      <td class="mono">expect(() =&gt; divisao(5,0))<br>&nbsp;&nbsp;.toThrow('Divisão por zero não é permitida.')</td>
+      <td>7 <span class="mono">StringLiteral</span> + 6 <span class="mono">ConditionalExpression</span> de <em>guard-clauses</em></td>
+    </tr>
+    <tr>
+      <td><strong>Valores de fronteira</strong> — o ponto exato em que os operadores divergem.</td>
+      <td class="mono">isMaiorQue(5,5) &rarr; false<br>raizQuadrada(0) &rarr; 0<br>fatorial(0) &rarr; 1</td>
+      <td>8 <span class="mono">EqualityOperator</span></td>
+    </tr>
+    <tr>
+      <td><strong>Casos negativos</strong> — a classe de equivalência oposta, para o predicado não poder ser fixado em <code>true</code>.</td>
+      <td class="mono">isPar(7) &rarr; false<br>isPrimo(9) &rarr; false<br>isDivisivel(10,3) &rarr; false</td>
+      <td>12 <span class="mono">ConditionalExpression</span>, <span class="mono">BooleanLiteral</span> e <span class="mono">BlockStatement</span></td>
+    </tr>
+    <tr>
+      <td><strong>Dados representativos</strong> — entradas que realmente exijam o comportamento.</td>
+      <td class="mono">medianaArray([5,1,3]) &rarr; 3<br>medianaArray([4,1,3,2]) &rarr; 2.5<br>celsiusParaFahrenheit(100) &rarr; 212</td>
+      <td>13 mutantes de <code>medianaArray</code> e das conversões de temperatura</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Dois mutantes exigiram oráculos menos óbvios, por não alterarem o <em>valor</em> devolvido:</p>
+
+<ul>
+  <li><strong><code>produtoArray</code>, linha 84.</strong> Com <code>if (false)</code> o resultado
+  continua 1, pois o <code>reduce</code> já usa 1 como acumulador inicial; o único comportamento
+  observável é o curto-circuito. O teste instrumenta o método <code>reduce</code> do array e assevera
+  que ele <strong>não</strong> é chamado quando o array está vazio.</li>
+  <li><strong><code>clamp</code>, linhas 88–89.</strong> <code>valor &lt; min</code> e
+  <code>valor &lt;= min</code> devolvem números numericamente iguais quando <code>valor === min</code>;
+  a única diferença observável em JavaScript é a identidade de <code>-0</code> e <code>+0</code>, que é
+  a semântica de <code>Object.is</code> usada por <code>toBe</code>. Assim,
+  <code>expect(clamp(-0, 0, 10)).toBe(-0)</code> fixa o contrato “valor já dentro do intervalo é
+  devolvido sem substituição” e mata o mutante.</li>
+</ul>
+
+<!-- ======================= 4. RESULTADOS ======================= -->
+<h2>4. Resultados finais</h2>
+
+<table class="dados">
+  <thead>
+    <tr>
+      <th>Execução</th><th class="num">Testes</th><th class="num">Mutantes</th>
+      <th class="num">Mortos</th><th class="num">Timeout</th><th class="num">Sobrev.</th>
+      <th class="num">Sem cobertura</th><th class="num">Mutation score</th><th class="num">Cobertura (linhas)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Antes (suíte original)</td>
+      <td class="num">50</td><td class="num">213</td><td class="num">154</td><td class="num">3</td>
+      <td class="num neg">44</td><td class="num neg">12</td><td class="num neg">73,71%</td><td class="num">98,64%</td>
+    </tr>
+    <tr>
+      <td>Depois (suíte aprimorada)</td>
+      <td class="num">82</td><td class="num">213</td><td class="num">206</td><td class="num">3</td>
+      <td class="num pos">4</td><td class="num pos">0</td><td class="num pos">98,12%</td><td class="num pos">100%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>O <em>mutation score</em> subiu de <strong>73,71% para 98,12%</strong> (+24,41 pontos percentuais):
+dos 56 mutantes antes indetectados — 44 sobreviventes e 12 sem cobertura — restaram apenas 4. A meta de
+98% foi atingida e passou a ser verificada automaticamente por
+<code>"thresholds": { "break": 98 }</code> em <span class="mono">stryker.conf.json</span>, que faz a
+análise falhar se o score cair. A cobertura chegou a 100% em todas as dimensões, o que reforça a tese do
+trabalho: ela é consequência, e não causa, de uma boa suíte.</p>
+
+<figure>
+  <img src="imagens/02-overview-final.png" alt="Visão geral do relatório final do Stryker">
+  <figcaption><strong>Figura 5</strong> — Relatório final: 98,12%, 209 mutantes detectados e nenhum
+  mutante sem cobertura.</figcaption>
+</figure>
+
+<figure>
+  <img src="imagens/07-mutante-183-morto.png" alt="Mutante 183 morto">
+  <figcaption><strong>Figura 6</strong> — O mutante #183 da Figura 3 agora é <span class="mono">Killed</span>,
+  e o relatório nomeia o teste responsável: <em>“isMaiorQue deve retornar false quando a === b”</em>.</figcaption>
+</figure>
+
+<h3>4.1. Os quatro sobreviventes remanescentes são mutantes equivalentes</h3>
+
+<figure>
+  <img src="imagens/09-mutantes-equivalentes-l19.png" alt="Mutantes equivalentes na linha 19">
+  <figcaption><strong>Figura 7</strong> — Os quatro sobreviventes estão todos na linha 19 de
+  <code>fatorial</code>: cobertos por três testes e ainda assim vivos.</figcaption>
+</figure>
+
+<p>Todos atacam o mesmo trecho, <code>if (n === 0 || n === 1) return 1;</code>, que é
+<strong>redundante</strong>: para <code>n &lt;= 1</code> o laço <code>for (let i = 2; i &lt;= n; i++)</code>
+não executa nenhuma iteração e <code>resultado</code> já vale 1, logo a função devolve 1 com ou sem a
+linha 19. Original e mutantes são funcionalmente idênticos em todo o domínio, sem efeito colateral que os
+distinga: são <strong>mutantes equivalentes</strong>, impossíveis de matar por qualquer teste. Como decidir
+equivalência de programas é indecidível no caso geral, nenhuma ferramenta os descarta sozinha — o
+julgamento é do engenheiro. Portanto 209/213 = 98,12% é o teto desta suíte sem tocar no código de produção.
+As alternativas ortodoxas seriam refatorar o <em>guard-clause</em> redundante ou anotá-lo com
+<code>// Stryker disable next-line ConditionalExpression,LogicalOperator</code>, o que o reclassificaria
+como <span class="mono">Ignored</span> e levaria o score a 100%. Preferimos manter os quatro visíveis: mascarar
+a métrica custaria mais do que os 1,88 pontos que ela deixa de exibir.</p>
+
+<!-- ======================= 5. CONCLUSÃO ======================= -->
+<h2>5. Conclusão</h2>
+
+<p>O experimento mostra, com números do mesmo projeto, que cobertura de código é condição necessária mas
+insuficiente: a suíte original executava 100% das funções e 98,64% das linhas e, ainda assim, deixava passar
+56 dos 213 defeitos injetados. O teste de mutação avalia justamente o que a cobertura ignora — a qualidade do
+<em>oráculo</em> — e converte “melhorar os testes” em tarefa concreta e verificável: cada mutante sobrevivente
+é um defeito real que a suíte não veria, com a linha exata e a alteração que o produziu.</p>
+
+<p>Três fraquezas recorrentes explicaram quase todos os sobreviventes: asserções que verificam a ocorrência mas
+não o conteúdo; ausência de valores de fronteira; e dados de teste que não exercitam a responsabilidade da função
+(o array já ordenado, o 0&nbsp;°C). Nenhuma seria revelada por cobertura ou inspeção superficial. O custo foi
+modesto — 213 mutantes em cerca de 15 segundos —, o que justifica integrar a análise à CI com um limite mínimo de
+score. E os mutantes equivalentes da linha 19 lembram que a métrica é instrumento de diagnóstico, não alvo: a
+leitura crítica do relatório vale mais do que a perseguição do 100%.</p>
+
+<div class="caixa">
+  <strong>Como reproduzir.</strong> <span class="mono">npm install</span> &rarr;
+  <span class="mono">npm test -- --coverage</span> &rarr; <span class="mono">npx stryker run</span>.
+  Os relatórios HTML e JSON das duas execuções — de onde vêm as figuras deste documento — estão
+  versionados em <span class="mono">docs/relatorios/</span>.
+</div>
+
+</body>
+</html>
