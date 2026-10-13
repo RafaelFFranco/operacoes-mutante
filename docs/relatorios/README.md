@@ -8,7 +8,7 @@ Ambiente: Windows 10, Node.js 22.17.0, npm 11.7.0, Jest 29.7.0, StrykerJS 10.0.0
 
 ---
 
-## 1ª execução — suíte original (50 testes)
+## 1ª execução: suíte original (50 testes)
 
 `npm test` → `Tests: 50 passed, 50 total`
 
@@ -40,7 +40,7 @@ Total de 213 mutantes: 157 detectados (154 mortos + 3 *timeout*) e **56 indetect
 
 ---
 
-## 2ª execução — suíte aprimorada (82 testes)
+## 2ª execução: suíte aprimorada (82 testes)
 
 `npm test` → `Tests: 82 passed, 82 total`
 
@@ -80,7 +80,7 @@ Todos na linha 19 de `src/operacoes.js`, em `fatorial`:
 
 O `guard-clause` é redundante: para `n <= 1` o laço `for (let i = 2; i <= n; i++)` não executa
 nenhuma iteração e `resultado` já vale `1`. Original e mutantes produzem o mesmo valor para todo o
-domínio, sem efeitos colaterais — são **mutantes equivalentes**, indetectáveis por qualquer teste.
+domínio, sem efeitos colaterais: são **mutantes equivalentes**, indetectáveis por qualquer teste.
 
 ### Os 3 *timeouts* (contabilizados como detectados)
 

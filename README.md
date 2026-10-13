@@ -11,7 +11,7 @@ baixa capacidade de detecção de defeitos.
 | **Antes** (suíte original) | 50 | **73,71%** | 154 (+3 timeout) | 44 | 12 | 98,64% |
 | **Depois** (suíte aprimorada) | 82 | **98,12%** | 206 (+3 timeout) | 4 | 0 | 100% |
 
-Meta do trabalho (> 98%) atingida, sem alterar nenhuma linha de `src/operacoes.js` — todo o ganho
+Meta do trabalho (> 98%) atingida, sem alterar nenhuma linha de `src/operacoes.js`: todo o ganho
 veio da suíte de testes. Os 4 mutantes remanescentes estão todos na linha 19 (`fatorial`) e são
 **mutantes equivalentes**: o `guard-clause` `if (n === 0 || n === 1) return 1;` é redundante, pois o
 laço seguinte já devolve `1` para `n <= 1`. Nenhum teste pode distingui-los do original. A análise
@@ -24,7 +24,7 @@ src/operacoes.js                  código sob teste (NÃO alterado)
 test/operacoes.test.js            50 testes originais + 32 testes dirigidos aos mutantes
 stryker.conf.json                 configuração do StrykerJS (jest-runner, break em 98%)
 docs/relatorio/
-  relatorio-teste-mutacao.pdf     relatório escrito (4 páginas) — entrega principal
+  relatorio-teste-mutacao.pdf     relatório escrito (4 páginas), entrega principal
   relatorio.html                  fonte do relatório
   gerar-pdf.py                    regenera o PDF a partir do HTML
   imagens/                        recortes dos relatórios do Stryker usados no PDF
